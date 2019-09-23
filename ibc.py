@@ -1,5 +1,7 @@
+from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 import requests
+import warnings
 
 headers = {
     'Host': 'www.nova88.com',
@@ -12,7 +14,7 @@ headers = {
 
 ########## proxy setting ###########
 
-proxy = "186.237.221.27:8080"
+proxy = "60.53.207.49:8080"
 proxies = {
     'http': 'http://' + proxy,
     'https': 'https://' + proxy,
@@ -21,6 +23,7 @@ proxies = {
 
 url = 'https://www.nova88.com/Default.aspx?IsSSL=1&hidSelLang=en'
 
+warnings.simplefilter('ignore',InsecureRequestWarning)
 res = requests.get(url=url,headers=headers,proxies=proxies,verify=False).content
 soup = BeautifulSoup(res, 'html.parser')
 titile = soup.find_all("div", attrs={"class": "lobby-title"})
